@@ -21,7 +21,13 @@ def run_git_command(cmd: List[str]) -> Optional[str]:
         return None
     try:
         result = subprocess.run(
-            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True,
+            encoding="utf-8",
+            errors="replace",
         )
         return result.stdout.strip()
     except subprocess.CalledProcessError as e:
