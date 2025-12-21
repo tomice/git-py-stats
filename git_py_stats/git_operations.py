@@ -20,6 +20,9 @@ def run_git_command(cmd: List[str]) -> Optional[str]:
         print("Error: Command list is empty!")
         return None
     try:
+        # We enforce utf-8 encoding and use surrogateescape to handle non-ascii characters
+        # that may be present in git history (e.g. in author names or commit messages)
+        # as recommended by PEP 383 for system interfaces.
         result = subprocess.run(
             cmd,
             stdout=subprocess.PIPE,
@@ -27,7 +30,7 @@ def run_git_command(cmd: List[str]) -> Optional[str]:
             text=True,
             check=True,
             encoding="utf-8",
-            errors="replace",
+            errors="surrogateescape",
         )
         return result.stdout.strip()
     except subprocess.CalledProcessError as e:

@@ -31,6 +31,8 @@ class TestGitOperations(unittest.TestCase):
             stderr=subprocess.PIPE,
             text=True,
             check=True,
+            encoding="utf-8",
+            errors="surrogateescape",
         )
 
     @patch("subprocess.run")
@@ -54,6 +56,8 @@ class TestGitOperations(unittest.TestCase):
             stderr=subprocess.PIPE,
             text=True,
             check=True,
+            encoding="utf-8",
+            errors="surrogateescape",
         )
 
     @patch("subprocess.run")
@@ -72,7 +76,13 @@ class TestGitOperations(unittest.TestCase):
         self.assertEqual(output, "")
 
         mock_subprocess_run.assert_called_once_with(
-            ["git", "status"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True
+            ["git", "status"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True,
+            encoding="utf-8",
+            errors="surrogateescape",
         )
 
     @patch("subprocess.run")
@@ -87,7 +97,13 @@ class TestGitOperations(unittest.TestCase):
         self.assertIsNone(output)
 
         mock_subprocess_run.assert_called_once_with(
-            ["git", "status"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True
+            ["git", "status"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True,
+            encoding="utf-8",
+            errors="surrogateescape",
         )
 
     def test_run_git_command_empty_command(self):
